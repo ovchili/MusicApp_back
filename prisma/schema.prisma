@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String @id @default(uuid())
+  login      String @unique
+  email      String @unique
+  avatarPath String @default("/uploads/default-avatar.png") @map("avatar_path")
+  password   String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Genre {
+  id        String           @id @default(uuid())
+  name      String           @unique
+  slug      String           @unique
+  tracks    GenresOnTracks[]
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+}
+
+model Group {
+  id String @id @default(uuid())
+
+  name String @unique
+  slug String @unique
+
+  posterPath String   @map("poster_path")
+  albums     Album[]
+  tracks     Track[]
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+}
+
+model Album {
+  id String @id @default(uuid())
+
+  name String @unique
+  slug String @unique
+
+  posterPath String @map("poster_path")
+
+  Group   Group  @relation(fields: [groupId], references: [id])
+  groupId String @map("group_id")
+
+  tracks Track[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Track {
+  id String @id @default(uuid())
+
+  name String @unique
+  slug String @unique
+
+  posterPath String @map("poster_path")
+  trackPath  String @map("track_path")
+
+  Group   Group  @relation(fields: [groupId], references: [id])
+  groupId String @map("group_id")
+
+  Album   Album  @relation(fields: [albumId], references: [id])
+  albumId String @map("album_id")
+
+  genres GenresOnTracks[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model GenresOnTracks {
+  Track   Track  @relation(fields: [trackId], references: [id])
+  trackId String @map("track_id")
+  Genre   Genre  @relation(fields: [genreId], references: [id])
+  genreId String @map("genre_id")
+
+  assignedAt DateTime @default(now()) @map("assigned_at")
+  assignedBy String   @map("assigned_by")
+
+  @@id([trackId, genreId])
+}
