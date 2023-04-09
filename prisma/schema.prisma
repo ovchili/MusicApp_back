@@ -11,11 +11,15 @@ datasource db {
 }
 
 model User {
-  id         String @id @default(uuid())
-  login      String @unique
-  email      String @unique
-  avatarPath String @default("/uploads/default-avatar.png") @map("avatar_path")
-  password   String
+  id             String          @id @default(uuid())
+  login          String          @unique
+  email          String          @unique
+  avatarPath     String          @default("/uploads/default-avatar.png") @map("avatar_path")
+  password       String
+  isAdmin        Boolean         @default(false) @map("is_admin")
+  favoriteTracks FavoriteTrack[]
+  FavoriteAlbums FavoriteAlbum[]
+  FavoriteGroups FavoriteGroup[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -36,11 +40,12 @@ model Group {
   name String @unique
   slug String @unique
 
-  posterPath String   @map("poster_path")
-  albums     Album[]
-  tracks     Track[]
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  posterPath    String          @map("poster_path")
+  albums        Album[]
+  tracks        Track[]
+  FavoriteUsers FavoriteGroup[]
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
 }
 
 model Album {
@@ -55,6 +60,8 @@ model Album {
   groupId String @map("group_id")
 
   tracks Track[]
+
+  FavoriteUsers FavoriteAlbum[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -75,7 +82,8 @@ model Track {
   Album   Album  @relation(fields: [albumId], references: [id])
   albumId String @map("album_id")
 
-  genres GenresOnTracks[]
+  genres       GenresOnTracks[]
+  favoriteUser FavoriteTrack[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -91,4 +99,33 @@ model GenresOnTracks {
   assignedBy String   @map("assigned_by")
 
   @@id([trackId, genreId])
+}
+
+model FavoriteTrack {
+  User    User   @relation(fields: [userId], references: [id])
+  userId  String @map("user_id")
+  Track   Track  @relation(fields: [trackId], references: [id])
+  trackId String @map("track_id")
+
+  @@id([trackId, userId])
+}
+
+model FavoriteAlbum {
+  User   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  Album   Album  @relation(fields: [albumId], references: [id])
+  albumId String @map("album_id")
+
+  @@id([userId, albumId])
+}
+
+model FavoriteGroup {
+  User   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  Group   Group  @relation(fields: [groupId], references: [id])
+  groupId String @map("group_id")
+
+  @@id([groupId, userId])
 }
