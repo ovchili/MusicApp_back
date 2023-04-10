@@ -1,5 +1,4 @@
 import {
-  Post,
   Body,
   Controller,
   Delete,
@@ -9,7 +8,6 @@ import {
   Put,
   UsePipes,
   ValidationPipe,
-  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
@@ -41,8 +39,8 @@ export class UserController {
       email: false,
       avatarPath: false,
       favoriteTracks: true,
-      FavoriteAlbums: true,
-      FavoriteGroups: true,
+      favoriteAlbums: true,
+      favoriteGroups: true,
     },
   ) {
     return await this.userService.byId(id, favorites);
@@ -56,35 +54,6 @@ export class UserController {
     return await this.userService.update(id, dto);
   }
 
-  @Patch('profile/favorites/:trackId')
-  @Auth()
-  @HttpCode(200)
-  async toggleFavoriteTracks(
-    @CurrentUser('id') id: string,
-    @Param('trackId') trackId: string,
-  ) {
-    return await this.userService.toggleFavoriteTracks(id, trackId);
-  }
-
-  @Patch('profile/favorites/:groupId')
-  @Auth()
-  @HttpCode(200)
-  async toggleFavoriteGroups(
-    @CurrentUser('id') id: string,
-    @Param('groupId') groupId: string,
-  ) {
-    return await this.userService.toggleFavoriteGroups(id, groupId);
-  }
-
-  @Patch('profile/favorites/:albumId')
-  @Auth()
-  @HttpCode(200)
-  async toggleFavoriteAlbums(
-    @CurrentUser('id') id: string,
-    @Param('albumId') albumId: string,
-  ) {
-    return await this.userService.toggleFavoriteAlbums(id, albumId);
-  }
   @Get('/count')
   @Auth('admin')
   async getUserCount() {

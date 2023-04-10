@@ -4405,6 +4405,11 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
+slug-gen@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/slug-gen/-/slug-gen-1.0.0.tgz#b9475c86abccc02ef63902d0334e7653200c5f1b"
+  integrity sha512-++Fzq75NXItUNnVl7gAPHGr+nHMK6CtUcVEjb7wW9/ez1ndtZRVVv8o96vn5yOpPQGDTCTW4OSd54f41dWUlHg==
+
 source-map-support@0.5.13:
   version "0.5.13"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
