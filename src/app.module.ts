@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { FileModule } from './file/file.module';
 import { GenreModule } from './genre/genre.module';
 import { GroupModule } from './group/group.module';
+import { AlbumModule } from './album/album.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { GroupModule } from './group/group.module';
     FileModule,
     GenreModule,
     GroupModule,
+    AlbumModule,
   ],
   controllers: [AppController],
   providers: [AppService],

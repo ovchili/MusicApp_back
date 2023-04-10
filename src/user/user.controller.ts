@@ -29,7 +29,7 @@ export class UserController {
     return await this.userService.byId(id, selectObject);
   }
 
-  @Get('/profile/favorites')
+  @Get('/favorites')
   @Auth()
   async getFavorites(
     @CurrentUser('id') id: string,

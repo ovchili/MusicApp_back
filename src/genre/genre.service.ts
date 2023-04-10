@@ -64,6 +64,8 @@ export class GenreService {
         tracks: true,
       },
     });
+
+    if (!genre) throw new NotFoundException('Genre not found');
     return genre;
   }
 
