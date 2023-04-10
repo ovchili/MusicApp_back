@@ -9,6 +9,7 @@ import { FileModule } from './file/file.module';
 import { GenreModule } from './genre/genre.module';
 import { GroupModule } from './group/group.module';
 import { AlbumModule } from './album/album.module';
+import { TrackModule } from './track/track.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AlbumModule } from './album/album.module';
     GenreModule,
     GroupModule,
     AlbumModule,
+    TrackModule,
   ],
   controllers: [AppController],
   providers: [AppService],
