@@ -14,7 +14,6 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { CurrentUser } from './decorators/user.decorator';
 import { Prisma } from '@prisma/client';
 import { UserDto } from './dto/user.dto';
-//import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UserController {

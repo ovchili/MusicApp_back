@@ -83,12 +83,12 @@ export class AuthService {
     const user =
       (await this.prisma.user.findUnique({
         where: {
-          email: dto.emailLogin,
+          email: dto.loginOrEmail,
         },
       })) ||
       (await this.prisma.user.findUnique({
         where: {
-          login: dto.emailLogin,
+          login: dto.loginOrEmail,
         },
       }));
 

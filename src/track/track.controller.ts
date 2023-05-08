@@ -21,33 +21,33 @@ export class TrackController {
 
   @Get()
   @Auth()
-  async getAllGenres(@Query('search') searchTerm?: string) {
+  async getAllTracks(@Query('search') searchTerm?: string) {
     return await this.trackService.getAll(searchTerm);
   }
 
   @Get('slug/:slug')
   @Auth()
-  async getGenreBySlug(@Param('slug') slug: string) {
+  async getTrackBySlug(@Param('slug') slug: string) {
     return await this.trackService.bySlug(slug);
   }
 
   @Get(':id')
   @Auth('admin')
-  async getGenreById(@Param('id') id: string) {
+  async getTrackById(@Param('id') id: string) {
     return await this.trackService.byId(id);
   }
 
   @Post()
   @Auth('admin')
   @HttpCode(200)
-  async createGenre(@Body() dto: TrackDto) {
+  async createTrack(@Body() dto: TrackDto) {
     return await this.trackService.create(dto);
   }
 
   @Put(':id')
   @Auth('admin')
   @HttpCode(200)
-  async updateGenre(@Param('id') id: string, @Body() dto: TrackDto) {
+  async updateTrack(@Param('id') id: string, @Body() dto: TrackDto) {
     return await this.trackService.update(id, dto);
   }
 

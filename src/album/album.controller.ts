@@ -21,33 +21,33 @@ export class AlbumController {
 
   @Get()
   @Auth()
-  async getAllGenres(@Query('search') searchTerm?: string) {
+  async getAllAlbums(@Query('search') searchTerm?: string) {
     return await this.albumService.getAll(searchTerm);
   }
 
   @Get('slug/:slug')
   @Auth()
-  async getGenreBySlug(@Param('slug') slug: string) {
+  async getAlbumBySlug(@Param('slug') slug: string) {
     return await this.albumService.bySlug(slug);
   }
 
   @Get(':id')
   @Auth('admin')
-  async getGenreById(@Param('id') id: string) {
+  async getAlbumById(@Param('id') id: string) {
     return await this.albumService.byId(id);
   }
 
   @Post()
   @Auth('admin')
   @HttpCode(200)
-  async createGenre(@Body() dto: AlbumDto) {
+  async createAlbum(@Body() dto: AlbumDto) {
     return await this.albumService.create(dto);
   }
 
   @Put(':id')
   @Auth('admin')
   @HttpCode(200)
-  async updateGenre(@Param('id') id: string, @Body() dto: AlbumDto) {
+  async updateAlbum(@Param('id') id: string, @Body() dto: AlbumDto) {
     return await this.albumService.update(id, dto);
   }
 
@@ -64,7 +64,7 @@ export class AlbumController {
   @Delete(':id')
   @Auth('admin')
   @HttpCode(200)
-  async deleteGenre(@Param('id') id: string) {
+  async deleteAlbum(@Param('id') id: string) {
     return await this.albumService.delete(id);
   }
 }

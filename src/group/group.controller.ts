@@ -21,33 +21,33 @@ export class GroupController {
 
   @Get()
   @Auth()
-  async getAllGenres(@Query('search') searchTerm?: string) {
+  async getAllGroups(@Query('search') searchTerm?: string) {
     return await this.groupService.getAll(searchTerm);
   }
 
   @Get('slug/:slug')
   @Auth()
-  async getGenreBySlug(@Param('slug') slug: string) {
+  async getGroupBySlug(@Param('slug') slug: string) {
     return await this.groupService.bySlug(slug);
   }
 
   @Get(':id')
   @Auth('admin')
-  async getGenreById(@Param('id') id: string) {
+  async getGroupById(@Param('id') id: string) {
     return await this.groupService.byId(id);
   }
 
   @Post()
   @Auth('admin')
   @HttpCode(200)
-  async createGenre(@Body() dto: GroupDto) {
+  async createGroup(@Body() dto: GroupDto) {
     return await this.groupService.create(dto);
   }
 
   @Put(':id')
   @Auth('admin')
   @HttpCode(200)
-  async updateGenre(@Param('id') id: string, @Body() dto: GroupDto) {
+  async updateGroup(@Param('id') id: string, @Body() dto: GroupDto) {
     return await this.groupService.update(id, dto);
   }
 
@@ -64,7 +64,7 @@ export class GroupController {
   @Delete(':id')
   @Auth('admin')
   @HttpCode(200)
-  async deleteGenre(@Param('id') id: string) {
+  async deleteGroup(@Param('id') id: string) {
     return await this.groupService.delete(id);
   }
 }
